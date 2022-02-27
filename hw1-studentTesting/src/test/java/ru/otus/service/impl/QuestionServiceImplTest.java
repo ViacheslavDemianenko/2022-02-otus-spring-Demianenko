@@ -17,7 +17,7 @@ class QuestionServiceImplTest {
     @Mock
     private ResourceLoader resourceLoader;
 
-
+    //Пока не получилось запустить тест, видимо не инициализируются какие-то библиотечные классы
     @Test
     void getQuestion(){
         questionService.getQuestions();
