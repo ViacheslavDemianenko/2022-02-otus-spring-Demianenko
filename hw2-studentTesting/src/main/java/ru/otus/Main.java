@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ru.otus.service.PrintService;
-import ru.otus.service.QuestionService;
+import ru.otus.service.InterviewService;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -16,11 +16,11 @@ public class Main {
         ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 
         PrintService printService = context.getBean("printServiceImpl", PrintService.class);
-        QuestionService questionService = context.getBean("questionServiceImpl", QuestionService.class);
+        InterviewService interviewService = context.getBean("interviewServiceImpl", InterviewService.class);
 
-        var student = questionService.startTest();
+        var student = interviewService.startTest();
         System.out.println(student.toString());
 
-        questionService.checkNumberCorrectAnswer(student.getResult());
+        interviewService.checkNumberCorrectAnswer(student.getResult());
     }
 }

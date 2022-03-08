@@ -4,20 +4,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.dao.InterviewDao;
+import ru.otus.exception.DetailRuntimeException;
+import ru.otus.helper.ConsoleAnswerHelper;
+import ru.otus.helper.StudentInitializer;
 import ru.otus.model.Interview;
 import ru.otus.model.Student;
-import ru.otus.service.QuestionService;
+import ru.otus.service.InterviewService;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 @RequiredArgsConstructor
 @Service
-public class QuestionServiceImpl implements QuestionService {
+public class InterviewServiceImpl implements InterviewService {
 
     private final InterviewDao interviewDao;
+    private final StudentInitializer studentInitializer;
+    private final ConsoleAnswerHelper consoleAnswerHelper;
 
     @Value("${number.test.pass}")
     private int numberOfAnswersForTestPass;
@@ -28,20 +32,14 @@ public class QuestionServiceImpl implements QuestionService {
         List<Integer> studentAnswers = new ArrayList<>();
         Scanner console = new Scanner(System.in);
 
-        var student = initializeStudent();
+        var student = studentInitializer.initializeStudent();
 
         for(Interview interview : interviewList){
             System.out.println("Question №"+interview.getId() + ": " + interview.getQuestionText());
             System.out.println("Answers: " + interview.getAnswers().toString());
             System.out.println("Enter number of correct answer: ");
 
-            try{
-                studentAnswers.add(console.nextInt());
-            } catch (InputMismatchException IME){
-                System.out.println("You don't put a number. Try again");
-                console.nextLine();
-                studentAnswers.add(console.nextInt());
-            }
+            consoleAnswerHelper.getAnswerFromStudent(console, studentAnswers);
         }
         student.setResult(checkAnswer(studentAnswers, interviewList));
         return student;
@@ -57,27 +55,12 @@ public class QuestionServiceImpl implements QuestionService {
         return result;
     }
 
-    private Student initializeStudent(){
-        var student = new Student();
-
-        Scanner console = new Scanner(System.in);
-        System.out.println("Enter your first name: ");
-        String input = console.next();
-        student.setFirstName(input);
-
-        System.out.println("Enter your last name: ");
-        input = console.next();
-        student.setLastName(input);
-
-        return student;
-    }
-
     @Override
     public void checkNumberCorrectAnswer(int number){
-        if(number < numberOfAnswersForTestPass){
-            System.out.println("\nFAILED! You didn't pass test");
-        } else {
+        if(number > numberOfAnswersForTestPass){
             System.out.println("\nCONGRATS! You passed test");
+        } else {
+            throw new DetailRuntimeException("FAILED! You didn't pass test");
         }
     }
 }

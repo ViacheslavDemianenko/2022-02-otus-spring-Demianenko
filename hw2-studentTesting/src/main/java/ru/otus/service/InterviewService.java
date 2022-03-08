@@ -3,7 +3,7 @@ package ru.otus.service;
 import ru.otus.model.Student;
 
 
-public interface QuestionService {
+public interface InterviewService {
 
     Student startTest();
 

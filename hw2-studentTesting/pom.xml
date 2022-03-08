@@ -16,18 +16,13 @@
     <junit.version>1.8.2</junit.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <spring-context.version>5.3.16</spring-context.version>
-    <mockito-all.version>1.10.19</mockito-all.version>
     <mockito.version>3.11.2</mockito.version>
     <mockito-junit-jupiter.version>2.23.4</mockito-junit-jupiter.version>
+    <spring-test.version>5.1.2.RELEASE</spring-test.version>
+    <junit-jupiter-param.version>5.7.1</junit-jupiter-param.version>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -38,12 +33,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito-all.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -59,14 +48,28 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring-test.version}</version>
+      <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit-jupiter-param.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${spring-context.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
     </dependency>
   </dependencies>
 
