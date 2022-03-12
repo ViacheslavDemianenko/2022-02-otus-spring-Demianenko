@@ -9,12 +9,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Student {
-    private String firstName;
-    private String lastName;
+public class Test {
+    private Student student;
+    private int result;
 
     @Override
     public String toString() {
-        return "Студент: " + firstName + " " + lastName;
+        return "Правильных ответов:" + result;
     }
 }

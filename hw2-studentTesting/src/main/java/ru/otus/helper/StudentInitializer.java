@@ -1,9 +1,11 @@
 package ru.otus.helper;
 
+import org.springframework.stereotype.Component;
 import ru.otus.model.Student;
 
 import java.util.Scanner;
 
+@Component
 public class StudentInitializer {
 
     public Student initializeStudent(){

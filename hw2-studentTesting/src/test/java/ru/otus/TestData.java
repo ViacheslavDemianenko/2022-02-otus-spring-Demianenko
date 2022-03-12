@@ -1,6 +1,7 @@
 package ru.otus;
 
-import ru.otus.model.Interview;
+import ru.otus.model.Answer;
+import ru.otus.model.Question;
 import ru.otus.model.Student;
 
 import java.util.ArrayList;
@@ -8,27 +9,27 @@ import java.util.List;
 
 public class TestData {
 
-    public static List<Interview> createInterviewList(){
-        List<Interview> interviewList = new ArrayList<>();
+    public static List<Question> createQuestionsList(){
+        List<Question> questionList = new ArrayList<>();
 
-        List<String> answerList = new ArrayList<>();
-        answerList.add("answer1");
-        answerList.add("answer2");
+        List<String> answerText = new ArrayList<>();
+        answerText.add("answer1");
+        answerText.add("answer2");
+        var answer = new Answer(answerText, 1);
 
-        Interview interview1 = new Interview(1, "question", answerList, 1);
-        Interview interview2 = new Interview(2, "question", answerList, 1);
+        Question question1 = new Question(1, "question", answer);
+        Question question2 = new Question(2, "question", answer);
 
-        interviewList.add(interview1);
-        interviewList.add(interview2);
+        questionList.add(question1);
+        questionList.add(question2);
 
-        return interviewList;
+        return questionList;
     }
 
     public static Student createStudent(){
         var student = new Student();
         student.setFirstName("Viacheslav");
         student.setLastName("Demianenko");
-        student.setResult(2);
         return student;
     }
 }

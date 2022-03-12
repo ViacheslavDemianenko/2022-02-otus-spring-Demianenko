@@ -18,7 +18,7 @@
     <spring-context.version>5.3.16</spring-context.version>
     <mockito.version>3.11.2</mockito.version>
     <mockito-junit-jupiter.version>2.23.4</mockito-junit-jupiter.version>
-    <spring-test.version>5.1.2.RELEASE</spring-test.version>
+    <spring-test.version>5.3.16</spring-test.version>
     <junit-jupiter-param.version>5.7.1</junit-jupiter-param.version>
   </properties>
 
