@@ -12,9 +12,4 @@ import lombok.Setter;
 public class Test {
     private Student student;
     private int result;
-
-    @Override
-    public String toString() {
-        return "Правильных ответов:" + result;
-    }
 }

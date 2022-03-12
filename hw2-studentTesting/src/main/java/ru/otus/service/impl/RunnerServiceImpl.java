@@ -16,6 +16,7 @@ public class RunnerServiceImpl implements RunnerService {
     @Override
     public void runTest(){
         var test = testService.startTest();
+        ioService.outputString("Студент: " + test.getStudent().getFirstName() + " " + test.getStudent().getLastName());
         ioService.outputString("Правильных ответов: " + test.getResult());
         testService.checkNumberCorrectAnswer(test.getResult());
     }

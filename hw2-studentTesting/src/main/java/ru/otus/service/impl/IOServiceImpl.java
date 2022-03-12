@@ -3,7 +3,6 @@ package ru.otus.service.impl;
 import org.springframework.stereotype.Service;
 import ru.otus.service.IOService;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @Service

@@ -39,6 +39,6 @@ public class RunnerServiceImplTest {
         runnerService.runTest();
 
         //then
-        verify(ioService, times(1)).outputString("Правильных ответов: " + test.getResult());
+        verify(ioService, times(2)).outputString(anyString());
     }
 }

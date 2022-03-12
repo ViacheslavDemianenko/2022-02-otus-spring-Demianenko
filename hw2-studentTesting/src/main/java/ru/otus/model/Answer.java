@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Answer {
-
     private List<String> answerText;
     private int rightAnswerNumber;
 }
