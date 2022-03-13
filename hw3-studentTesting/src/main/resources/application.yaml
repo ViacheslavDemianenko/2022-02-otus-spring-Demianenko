@@ -1,0 +1,12 @@
+application:
+  language: en
+  number:
+    test:
+      pass: 4
+spring:
+  main:
+    banner-mode: console
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
