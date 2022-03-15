@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import ru.otus.dao.QuestionDao;
-import ru.otus.helper.StudentInitializer;
+import ru.otus.model.TestResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -25,7 +25,7 @@ public class TestServiceImplTest {
     @Mock
     private QuestionDao questionDao;
     @Mock
-    private StudentInitializer studentInitializer;
+    private StudentServiceImpl studentService;
     @Mock
     private IOServiceImpl ioService;
     @Mock
@@ -35,38 +35,32 @@ public class TestServiceImplTest {
 
     @BeforeEach
     void setUp(){
-        testService = new TestServiceImpl(questionDao, studentInitializer, ioService, messageSourceService,2);
-    }
-
-    @Test
-    void startTest(){
-        //given
-        var questionList = createQuestionsList();
-        var student = createStudent();
-        when(questionDao.getQuestionList()).thenReturn(questionList);
-        when(studentInitializer.initializeStudent()).thenReturn(student);
-        when(ioService.readIntWithPrompt(anyString())).thenReturn(1);
-        when(messageSourceService.getMessage(anyString())).thenReturn("message");
-
-        //when
-        var test = testService.startTest();
-
-        //then
-        assertNotNull(test);
-        assertEquals(student.getFirstName(), test.getStudent().getFirstName());
-        assertEquals(student.getLastName(), test.getStudent().getLastName());
-
+        testService = new TestServiceImpl(questionDao,
+                studentService,
+                ioService,
+                messageSourceService,
+                NUMBER_OF_ANSWERS_FOR_TEST_PASS);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1, 3})
-    void checkNumberCorrectAnswer(int number){
-        testService.checkNumberCorrectAnswer(number);
+    void startTest(int inputAnswerNumber){
+        //given
+        var questionList = createQuestionsList();
+        var student = createStudent();
+        when(questionDao.getQuestionList()).thenReturn(questionList);
+        when(studentService.initializeStudent()).thenReturn(student);
+        when(ioService.readIntWithPrompt(anyString())).thenReturn(inputAnswerNumber);
         when(messageSourceService.getMessage(anyString())).thenReturn("message");
-        if(number >= NUMBER_OF_ANSWERS_FOR_TEST_PASS){
-            verify(ioService,times(1)).outputString(any());
-        } else {
-            verify(ioService,times(1)).outputString(any());
-        }
+
+        //when
+        var testResult = testService.runTest();
+
+        //then
+        assertNotNull(testResult);
+        assertEquals(student.getFirstName(), testResult.getStudent().getFirstName());
+        assertEquals(student.getLastName(), testResult.getStudent().getLastName());
+
+        verify(messageSourceService,times(9)).getMessage(anyString());
     }
 }

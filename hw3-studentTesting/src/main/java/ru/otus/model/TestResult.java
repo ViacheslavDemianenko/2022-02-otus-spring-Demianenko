@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Test {
+public class TestResult {
     private Student student;
     private int result;
 }

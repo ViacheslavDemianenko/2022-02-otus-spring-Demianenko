@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ru.otus.service.RunnerService;
+import ru.otus.service.TestService;
 
 @SpringBootApplication
 @RequiredArgsConstructor
 public class SpringBootApp implements CommandLineRunner {
 
-    private final RunnerService runnerService;
+    private final TestService testService;
 
     public static void main(String[] args) {
         var app = new SpringApplication(SpringBootApp.class);
@@ -19,6 +19,6 @@ public class SpringBootApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        runnerService.runTest();
+        testService.runTest();
     }
 }

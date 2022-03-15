@@ -1,10 +1,10 @@
 package ru.otus.service;
 
-import ru.otus.model.Test;
+import ru.otus.model.TestResult;
 
 public interface TestService {
 
-    Test startTest();
+    TestResult runTest();
 
-    void checkNumberCorrectAnswer(int number);
+    void printTestResult(TestResult testResult);
 }
