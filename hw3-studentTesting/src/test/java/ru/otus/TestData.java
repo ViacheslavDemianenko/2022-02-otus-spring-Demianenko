@@ -12,13 +12,13 @@ public class TestData {
     public static List<Question> createQuestionsList(){
         List<Question> questionList = new ArrayList<>();
 
-        List<String> answerText = new ArrayList<>();
-        answerText.add("answer1");
-        answerText.add("answer2");
-        var answer = new Answer(answerText, 1);
+        List<Answer> answersList = new ArrayList<>();
+        answersList.add(new Answer("answer1", false));
+        answersList.add(new Answer("answer2", false));
+        answersList.add(new Answer("answer3", true));
 
-        Question question1 = new Question(1, "question", answer);
-        Question question2 = new Question(2, "question", answer);
+        Question question1 = new Question(1, "question", answersList);
+        Question question2 = new Question(2, "question", answersList);
 
         questionList.add(question1);
         questionList.add(question2);

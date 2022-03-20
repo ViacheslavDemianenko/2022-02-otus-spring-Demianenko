@@ -13,5 +13,4 @@ public class DetailRuntimeException extends RuntimeException {
     public DetailRuntimeException(Throwable cause){
         super(cause);
     }
-
 }

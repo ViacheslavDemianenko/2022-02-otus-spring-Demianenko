@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -12,5 +14,5 @@ import lombok.Setter;
 public class Question {
     private int id;
     private String questionText;
-    private Answer answer;
+    private List<Answer> answers;
 }

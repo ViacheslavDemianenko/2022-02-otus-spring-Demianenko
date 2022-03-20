@@ -1,6 +1,5 @@
 package ru.otus.dao;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import ru.otus.configuration.ApplicationConfiguration;
@@ -13,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class QuestionDao {
@@ -46,9 +43,7 @@ public class QuestionDao {
 
                 currentQuestion.setId(++questionNumber);
                 currentQuestion.setQuestionText(columnValues[0]);
-                var answer = new Answer(Arrays.stream(columnValues[1].split(ANSWER_SEPARATOR)).collect(Collectors.toList()),
-                        Integer.parseInt(columnValues[2]));
-                currentQuestion.setAnswer(answer);
+                currentQuestion.setAnswers(getAnswersList(columnValues));
 
                 questionsList.add(currentQuestion);
             }
@@ -57,5 +52,19 @@ public class QuestionDao {
         }
 
         return questionsList;
+    }
+
+    private List<Answer> getAnswersList(String [] columnValues){
+        var answers = columnValues[1].split(ANSWER_SEPARATOR);
+        List<Answer> questionAnswers = new ArrayList<>();
+        for(int i = 1; i <= answers.length; i++){
+            var currentAnswer = new Answer();
+            currentAnswer.setAnswerText(answers[i-1]);
+            if(i == Integer.parseInt(columnValues[2])){
+                currentAnswer.setCorrect(true);
+            }
+            questionAnswers.add(currentAnswer);
+        }
+        return questionAnswers;
     }
 }

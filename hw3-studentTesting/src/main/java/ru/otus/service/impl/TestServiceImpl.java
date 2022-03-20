@@ -3,14 +3,15 @@ package ru.otus.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.dao.QuestionDao;
+import ru.otus.model.Answer;
 import ru.otus.model.Question;
 import ru.otus.model.TestResult;
 import ru.otus.service.IOService;
 import ru.otus.service.MessageSourceService;
 import ru.otus.service.TestService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -37,9 +38,9 @@ public class TestServiceImpl implements TestService {
     public TestResult runTest(){
 
         List<Question> questionsList = questionDao.getQuestionList();
-        List<Integer> studentAnswers = new ArrayList<>();
 
         var testResult = getTest();
+        var result = 0;
 
         for(Question question : questionsList){
             ioService.outputString(messageSourceService.getMessage("questions") +
@@ -47,19 +48,24 @@ public class TestServiceImpl implements TestService {
                     question.getQuestionText());
 
             ioService.outputString(messageSourceService.getMessage("answers") +
-                    question.getAnswer().getAnswerText());
-            studentAnswers.add(ioService.readIntWithPrompt(messageSourceService.getMessage("test.getanswer")));
+                    question.getAnswers().stream().map(Answer::getAnswerText).collect(Collectors.toList()));
+
+            var selectedNumber = ioService.readIntWithPrompt("Enter number of correct answer:");
+            if(question.getAnswers().get(selectedNumber - 1).isCorrect()){
+                result++;
+            }
         }
-        testResult.setResult(checkAnswer(studentAnswers, questionsList));
 
+        testResult.setResult(result);
         printTestResult(testResult);
-
         return testResult;
     }
 
     @Override
     public void printTestResult(TestResult testResult){
-        ioService.outputString(messageSourceService.getMessage("test.student") + testResult.getStudent().getFirstName() + " " + testResult.getStudent().getLastName());
+        ioService.outputString(messageSourceService.getMessage("test.student") +
+                testResult.getStudent().getFirstName() + " " + testResult.getStudent().getLastName());
+
         ioService.outputString(messageSourceService.getMessage("test.result") + testResult.getResult());
         checkNumberCorrectAnswer(testResult.getResult());
     }
@@ -76,15 +82,5 @@ public class TestServiceImpl implements TestService {
         var testResult = new TestResult();
         testResult.setStudent(studentInitializer.initializeStudent());
         return testResult;
-    }
-
-    private int checkAnswer(List<Integer> studentAnswers, List<Question> questionsList){
-        int result = 0;
-        for (int i = 0; i < studentAnswers.size(); i++) {
-            if (questionsList.get(i).getAnswer().getRightAnswerNumber() == studentAnswers.get(i)) {
-                result++;
-            }
-        }
-        return result;
     }
 }

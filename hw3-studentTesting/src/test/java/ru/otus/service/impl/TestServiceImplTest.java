@@ -1,7 +1,6 @@
 package ru.otus.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -10,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import ru.otus.dao.QuestionDao;
-import ru.otus.model.TestResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -61,6 +59,6 @@ public class TestServiceImplTest {
         assertEquals(student.getFirstName(), testResult.getStudent().getFirstName());
         assertEquals(student.getLastName(), testResult.getStudent().getLastName());
 
-        verify(messageSourceService,times(9)).getMessage(anyString());
+        verify(messageSourceService,times(7)).getMessage(anyString());
     }
 }
