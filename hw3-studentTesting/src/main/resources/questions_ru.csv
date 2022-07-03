@@ -1,0 +1,5 @@
+Какой пакет не нуждается в принудительном импорте в Java?;java.util, java.lang, java.net, java.com;2
+Какой основной класс исключений в Java?;Throwable, Error, Exception, RuntimeException;1
+В каком году был создан Java?;1992, 1996, 1995, 1993;3
+Какой scope установлен по умолчанию в Spring?;Singleton, Prototype, Session, Request;1
+Ты погряз в Матрице?;Нет, Может быть, Пф..., Да;4
